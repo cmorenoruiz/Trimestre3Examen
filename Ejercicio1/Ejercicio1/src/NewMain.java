@@ -70,6 +70,46 @@ public class NewMain {
         comprueba(ex);
     }
 
+    public static void editarContacto(Statement stmt) throws Exception {
+        boolean ex = true;
+        int nuevoTelefono;
+        String nuevoNombre = "";
+        muestraContactos(stmt);
+        System.out.println("Introduzca el ID del contacto que desea modificar");
+        int id = in.nextInt();
+        corrigesSaltosLinea();
+
+        //recoge los nuevos datos a modificar
+        System.out.println("Nuevo nombre que desea cambiar");
+        nuevoNombre = in.nextLine();
+        System.out.println("Nuevo telefono que desea cambiar");
+        nuevoTelefono = in.nextInt();
+        corrigesSaltosLinea();
+
+        //modifica si es necesario los valores
+        if (!nuevoNombre.equals("")) {
+            ex = stmt.execute("update contactos SET nombre='" + nuevoNombre + "' WHERE id=" + id + ";");
+            System.out.println("update contactos SET nombre=" + nuevoNombre + " WHERE id=" + id + ";");
+            comprueba(ex);
+        }
+        ex = stmt.execute("update contactos SET telefono=" + nuevoTelefono + " WHERE id=" + id + ";");
+        System.out.println("update contactos SET telefono=" + nuevoTelefono + " WHERE id=" + id + ";");
+        comprueba(ex);
+    }
+
+    public static void eliminarContacto(Statement stmt) throws Exception {
+        boolean ex = true;
+        muestraContactos(stmt);
+        System.out.println("Introduzca el ID del contacto que desea eliminar");
+        int id = in.nextInt();
+        corrigesSaltosLinea();
+
+        //insertar elementos en la tabla
+        ex = stmt.execute("delete from contactos WHERE id=" + id + ";");
+        System.out.println("delete from contactos WHERE id=" + id + ";");
+        comprueba(ex);
+    }
+
     public static void main(String[] args) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -108,6 +148,7 @@ public class NewMain {
 
             do {
                 opcion = menu();
+                corrigesSaltosLinea();
                 switch (opcion) {
                     case 1:
                         System.out.println("\n\nSe ha seleccionado Mostrar contactos");
@@ -119,9 +160,11 @@ public class NewMain {
                         break;
                     case 3:
                         System.out.println("\n\nSe ha seleccionado Editar contacto");
+                        editarContacto(stmt);
                         break;
                     case 4:
                         System.out.println("\n\nSe ha seleccionado Eliminar contacto");
+                        eliminarContacto(stmt);
                         break;
                     case 5:
                         System.out.println("\n\nSe ha seleccionado Salir\nGracias por su tiempo");
