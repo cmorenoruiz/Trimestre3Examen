@@ -26,6 +26,12 @@ public class NewMain {
         }
     }
 
+    public static void corrigesSaltosLinea() {
+        if (in.hasNextLine()) {
+            in.nextLine();
+        }
+    }
+
     public static int menu() throws Exception {
         System.out.println("\n\n-------------------Menu-------------------\n");
         System.out.println("Opcion 1:Mostrar todos los contactos\nOpcion 2:Añadir contacto\nOpcion 3:Editar contacto\nOpcion 4:Eliminar contacto\nOpcion 5:Salir");
@@ -47,6 +53,23 @@ public class NewMain {
         }
     }
 
+    public static void añadeContacto(Statement stmt) throws Exception {
+        boolean ex = true;
+        //toma de datos del contacto a añadir
+        System.out.println("Se van a introducir datos en la tabla contactos de la Base de Datos AGENDA\nA continuacion se pide introducir el ID");
+        int id = in.nextInt();
+        corrigesSaltosLinea();
+        System.out.println("Introduzca el nombre");
+        String nombre = in.nextLine();
+        System.out.println("Introduzca el numero de telefono");
+        int telefono = in.nextInt();
+        corrigesSaltosLinea();
+        //insertar elementos en la tabla
+        ex = stmt.execute("insert into contactos(id, nombre, telefono) value (" + id + ", '" + nombre + "', " + telefono + ");");
+        System.out.println("insert into contactos(id, nombre, telefono) value (" + id + ", '" + nombre + "', " + telefono + ");");
+        comprueba(ex);
+    }
+
     public static void main(String[] args) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -65,22 +88,19 @@ public class NewMain {
 //            nr = stmt.executeUpdate("CREATE DATABASE AGENDA;");
 //            System.out.println("CREATE DATABASE AGENDA;");
 //            comprueba(nr);
-
             //entra en la base de datos recien creada
             ex = stmt.execute("USE AGENDA;");
             System.out.println("USE AGENDA;");
             comprueba(ex);
 
             //crea una tabla
-            ex = stmt.execute("create table contactos(id integer(4) PRIMARY KEY,nombre varchar(30) NOT NULL,telefono integer(9));");
-            System.out.println("create table contactos(id integer(8) PRIMARY KEY,nombre varchar(30) NOT NULL,telefono integer(9));");
-            comprueba(ex);
-
+//            ex = stmt.execute("create table contactos(id integer(4) PRIMARY KEY,nombre varchar(30) NOT NULL,telefono integer(9));");
+//            System.out.println("create table contactos(id integer(8) PRIMARY KEY,nombre varchar(30) NOT NULL,telefono integer(9));");
+//            comprueba(ex);
             //insertar elementos en la tabla
-            ex = stmt.execute("insert into contactos(id, nombre, telefono) value (0001, 'Juan',678098098), (0002, 'Francisco',678098098), (0003, 'Alfonso',678098098), (0004, 'Pepe',678098098);");
-            System.out.println("insert into contactos(id, nombre, telefono) value (0001, 'Juan',678098098), (0002, 'Francisco',678098098), (0003, 'Alfonso',678098098), (0004, 'Pepe',678098098);");
-            comprueba(ex);
-
+//            ex = stmt.execute("insert into contactos(id, nombre, telefono) value (0001, 'Juan',678098098), (0002, 'Francisco',678098098), (0003, 'Alfonso',678098098), (0004, 'Pepe',678098098);");
+//            System.out.println("insert into contactos(id, nombre, telefono) value (0001, 'Juan',678098098), (0002, 'Francisco',678098098), (0003, 'Alfonso',678098098), (0004, 'Pepe',678098098);");
+//            comprueba(ex);
             //muestra todo el contenido de la tabla creada previamente
             muestraContactos(stmt);
 
@@ -95,6 +115,7 @@ public class NewMain {
                         break;
                     case 2:
                         System.out.println("\n\nSe ha seleccionado Añadir contacto");
+                        añadeContacto(stmt);
                         break;
                     case 3:
                         System.out.println("\n\nSe ha seleccionado Editar contacto");
