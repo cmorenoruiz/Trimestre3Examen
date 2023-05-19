@@ -18,11 +18,15 @@ public class Ejercicio2 {
         //crea un ArrayList de aparcamientos y un Scanner puntero al archivo contenedor de los datos
         ArrayList<Aparcamiento> aparcamientos = new ArrayList<Aparcamiento>();
         try {
-            File archivo = new File("Aparcamientos2.txt");
-            Scanner leerFichero = new Scanner(archivo);
-            while (leerFichero.hasNextLine()) {
-                String fila = leerFichero.nextLine();
-                System.out.println(fila);
+//          File archivo = new File("Aparcamientos2.txt");
+//          Scanner leerFichero = new Scanner(archivo);
+            File archivo = new File("Aparcamientos.csv");
+            BufferedReader leerFichero = new BufferedReader(new FileReader(archivo));
+            String fila;
+            //Tiro la fila de títulos
+            fila = leerFichero.readLine();
+            while ((fila = leerFichero.readLine()) != null) {
+                //System.out.println(fila);
                 String[] contenido = fila.split(",");
                 //Aparcamiento(int PARCodigo, String PARNombrePar, String PARtipo, int PARplazasRotacion, int PARplazasResidente, int PARplazasDisuasorias, String PARdistrito)
                 aparcamientos.add(new Aparcamiento(contenido[0], contenido[1], contenido[2], contenido[3], contenido[4], contenido[5], contenido[6]));

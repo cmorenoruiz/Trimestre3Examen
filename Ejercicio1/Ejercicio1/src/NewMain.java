@@ -113,7 +113,9 @@ public class NewMain {
     public static void main(String[] args) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            String url = "jdbc:mysql://10.230.108.220:3306/mysql?serverTimezone=UTC";
+//            String url = "jdbc:mysql://10.230.108.220:3306/mysql?serverTimezone=UTC";
+            String url = "jdbc:mysql://192.168.1.159:3306/mysql?serverTimezone=UTC";
+
             Connection conn = DriverManager.getConnection(url, "root", "");
             Statement stmt = conn.createStatement();
 

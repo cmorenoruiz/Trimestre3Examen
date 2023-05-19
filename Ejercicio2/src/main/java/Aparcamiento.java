@@ -5,7 +5,7 @@
  */
 public class Aparcamiento {
 
-    private int PARCodigo, PARplazasRotacion, PARplazasResidente, PARplazasDisuasorias;
+    private Integer PARCodigo, PARplazasRotacion, PARplazasResidente, PARplazasDisuasorias;
     private String PARNombrePar, PARtipo, PARdistrito;
 
     public Aparcamiento(String PARCodigo, String PARNombrePar, String PARtipo, String PARplazasRotacion, String PARplazasResidente, String PARplazasDisuasorias,
@@ -32,9 +32,9 @@ public class Aparcamiento {
         this.PARdistrito = PARdistrito;
     }
 
-    public int devuelvePlazas() throws Exception {
+    public Integer devuelvePlazas() throws Exception {
         switch (PARtipo) {
-            case "ROTACION":
+            case "ROTACION","ROTACIÓN":
                 return PARplazasRotacion;
             case "MIXTO":
                 return PARplazasRotacion + PARplazasResidente;
@@ -47,19 +47,19 @@ public class Aparcamiento {
         }
     }
 
-    public int getPARCodigo() {
+    public Integer getPARCodigo() {
         return PARCodigo;
     }
 
-    public int getPARplazasRotacion() {
+    public Integer getPARplazasRotacion() {
         return PARplazasRotacion;
     }
 
-    public int getPARplazasResidente() {
+    public Integer getPARplazasResidente() {
         return PARplazasResidente;
     }
 
-    public int getPARplazasDisuasorias() {
+    public Integer getPARplazasDisuasorias() {
         return PARplazasDisuasorias;
     }
 
